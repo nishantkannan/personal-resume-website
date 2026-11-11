@@ -76,9 +76,7 @@ export const highlights: Highlight[] = [
   { value: "$1.9M+", label: "projected sales growth", weight: 0.74, target: "b-pricing-reviews" },
   { value: "+13%", label: "portfolio revenue in two years", weight: 0.64, target: "b-opportunity" },
   { value: "40%", label: "faster inquiry responses", weight: 0.56, target: "b-crm" },
-  { value: "2nd / 38", label: "teams at the GRID hackathon", weight: 0.5, target: "project-grid" },
-  { value: "<1%", label: "claim processing errors", weight: 0.44, target: "b-ai-solutions" },
-];
+  { value: "2nd / 38", label: "teams at the GRID hackathon", weight: 0.5, target: "project-grid" },];
 
 export const skillGroups: SkillGroup[] = [
   {
@@ -140,8 +138,13 @@ export const experience: { company: string; roles: Role[] } = {
       bullets: [
         {
           id: "b-ai-solutions",
-          text: "Architect AI solutions in Snowflake Cortex, AWS and Copilot Studio that accelerate auditing, remove manual bottlenecks and deliver accurate data on demand, eliminating $300K a year in labor costs and holding claim errors below 1%.",
+          text: "Architect AI solutions in Snowflake Cortex, AWS and Copilot Studio that accelerate auditing, remove manual bottlenecks and deliver accurate data on demand, eliminating $300K a year in labor costs.",
           skills: ["snowflake-cortex", "aws", "copilot-studio", "llm", "snowflake", "sql"],
+        },
+        {
+          id: "b-compliance",
+          text: "Accelerated the discount program compliance process by streamlining verification that dealers meet every eligibility requirement before discount claims are paid out.",
+          skills: ["llm", "snowflake", "sql"],
         },
         {
           id: "b-approvals",
