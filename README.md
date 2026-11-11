@@ -2,6 +2,8 @@
 
 [![CI](https://github.com/nishantkannan/personal-resume-website/actions/workflows/ci.yml/badge.svg)](https://github.com/nishantkannan/personal-resume-website/actions/workflows/ci.yml)
 
+**Live site: https://nishantkannan.vercel.app**
+
 My personal resume site: an interactive 3D "data terrain" whose peaks are real career results, a skill filter that lights up the work where each skill was used, a downloadable PDF resume, and a contact form that emails me.
 
 Built with Next.js 16 (App Router), TypeScript, Tailwind CSS v4, React Three Fiber for the 3D, and Resend for email. Hosted on Vercel.
