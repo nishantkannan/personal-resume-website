@@ -1,12 +1,14 @@
 # Nishant Kannan: resume website
 
+[![CI](https://github.com/nishantkannan/personal-resume-website/actions/workflows/ci.yml/badge.svg)](https://github.com/nishantkannan/personal-resume-website/actions/workflows/ci.yml)
+
 My personal resume site: an interactive 3D "data terrain" whose peaks are real career results, a skill filter that lights up the work where each skill was used, a downloadable PDF resume, and a contact form that emails me.
 
 Built with Next.js 16 (App Router), TypeScript, Tailwind CSS v4, React Three Fiber for the 3D, and Resend for email. Hosted on Vercel.
 
 ## Run it locally
 
-You need Node.js 20.9 or newer (`brew install node`).
+You need Node.js 20.9 or newer (`brew install node`). The version CI uses is pinned in `.nvmrc`.
 
 ```bash
 npm install
@@ -24,6 +26,9 @@ Other commands:
 | `npm run build` | Production build (what Vercel runs) |
 | `npm run start` | Serve the production build locally |
 | `npm run lint` | Check the code with ESLint |
+| `npm run typecheck` | Check types with TypeScript |
+
+Every push and pull request runs lint, type-check and build in GitHub Actions ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)). Dependabot opens monthly update PRs for npm packages and Actions.
 
 ## Edit my content
 
@@ -40,6 +45,7 @@ Other commands:
 ## How it's put together
 
 ```
+.github/                  CI workflow and Dependabot config
 src/
   app/
     layout.tsx            fonts, metadata, light/dark theme bootstrap
@@ -102,3 +108,7 @@ The site deploys on [Vercel](https://vercel.com) from this GitHub repo:
 6. **Optional custom domain**: **Project → Settings → Domains → Add**, then follow the DNS instructions. Afterward, set `NEXT_PUBLIC_SITE_URL` to the new address so share links use it.
 
 Test the live contact form once after setup to confirm the email arrives.
+
+## License
+
+The source code is under the [MIT License](LICENSE). My personal content (the text in `src/data/resume.ts` and `public/resume.pdf`) is not covered by it; all rights reserved.

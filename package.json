@@ -2,11 +2,22 @@
   "name": "personal-resume-website",
   "version": "0.1.0",
   "private": true,
+  "description": "Personal resume website for Nishant Kannan, with an interactive 3D results terrain and a contact form.",
+  "author": "Nishant Kannan",
+  "license": "SEE LICENSE IN LICENSE",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nishantkannan/personal-resume-website.git"
+  },
+  "engines": {
+    "node": ">=20.9.0"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.9",
