@@ -72,12 +72,12 @@ export const profile = {
 
 export const highlights: Highlight[] = [
   { value: "$800M+", label: "parts portfolio managed", weight: 1, target: "b-portfolio" },
-  { value: "$300K/yr", label: "engineering labor eliminated", weight: 0.86, target: "b-ai-framework" },
+  { value: "$300K/yr", label: "engineering labor eliminated", weight: 0.86, target: "b-ai-solutions" },
   { value: "$1.9M+", label: "projected sales growth", weight: 0.74, target: "b-pricing-reviews" },
   { value: "+13%", label: "portfolio revenue in two years", weight: 0.64, target: "b-opportunity" },
   { value: "40%", label: "faster inquiry responses", weight: 0.56, target: "b-crm" },
   { value: "2nd / 38", label: "teams at the GRID hackathon", weight: 0.5, target: "project-grid" },
-  { value: "<1%", label: "claim processing errors", weight: 0.44, target: "b-claims" },
+  { value: "<1%", label: "claim processing errors", weight: 0.44, target: "b-ai-solutions" },
 ];
 
 export const skillGroups: SkillGroup[] = [
@@ -139,19 +139,9 @@ export const experience: { company: string; roles: Role[] } = {
       end: "Present",
       bullets: [
         {
-          id: "b-ai-framework",
-          text: "Eliminated $300K a year of engineering labor by architecting an AI framework in Snowflake Cortex and AWS that standardizes and cleans competitive intelligence data, so markets can be compared feature by feature.",
-          skills: ["snowflake-cortex", "aws", "snowflake", "llm", "sql"],
-        },
-        {
-          id: "b-agent",
-          text: "Removed analyst bottlenecks on pricing and compliance questions by building and training an AI agent in Copilot Studio that became the central source of pricing information.",
-          skills: ["copilot-studio", "llm"],
-        },
-        {
-          id: "b-claims",
-          text: "Kept claim processing errors under 1% of all discounting claims with an LLM-based workflow that flags duplicate, incomplete or incorrectly valued credits and debits.",
-          skills: ["llm", "snowflake", "sql"],
+          id: "b-ai-solutions",
+          text: "Architect AI solutions in Snowflake Cortex, AWS and Copilot Studio that accelerate auditing, remove manual bottlenecks and deliver accurate data on demand, eliminating $300K a year in labor costs and holding claim errors below 1%.",
+          skills: ["snowflake-cortex", "aws", "copilot-studio", "llm", "snowflake", "sql"],
         },
         {
           id: "b-approvals",
