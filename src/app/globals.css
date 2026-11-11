@@ -1,0 +1,124 @@
+@import "tailwindcss";
+
+/* Dark mode follows data-theme on <html>, set before paint by the script in layout.tsx. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/*
+ * Survey terrain tokens
+ * Mist     #E9EEF0  page background (light)
+ * Basalt   #1F2B33  text (light) / background (dark)
+ * Contour  #3E6F78  primary: terrain, links, focus
+ * Signal   #E3A81B  results only, used as a fill, never as text on light
+ * Shale    #56636B  secondary text (AA on Mist)
+ * Granite  #8A949A  rules and grid lines only
+ */
+:root {
+  --bg: #e9eef0;
+  --surface: #f4f7f8;
+  --ink: #1f2b33;
+  --ink-soft: #56636b;
+  --line: #c3ccd1;
+  --contour: #3e6f78;
+  --contour-strong: #2f5960;
+  --signal: #e3a81b;
+  --on-signal: #1f2b33;
+  --terrain-base: #b9c9ce;
+  --terrain-high: #3e6f78;
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --bg: #1f2b33;
+  --surface: #26343d;
+  --ink: #e9eef0;
+  --ink-soft: #a7b3b9;
+  --line: #3a4a54;
+  --contour: #7fb3bc;
+  --contour-strong: #a3cbd2;
+  --signal: #e3a81b;
+  --on-signal: #1f2b33;
+  --terrain-base: #2f4049;
+  --terrain-high: #6fa3ad;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-line: var(--line);
+  --color-contour: var(--contour);
+  --color-contour-strong: var(--contour-strong);
+  --color-signal: var(--signal);
+  --color-on-signal: var(--on-signal);
+  --font-display: var(--font-archivo);
+  --font-sans: var(--font-plex);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 1.5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-plex), system-ui, sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Display type: Archivo pushed wide, so headings read as engineered lettering. */
+.display {
+  font-family: var(--font-archivo), system-ui, sans-serif;
+  font-stretch: 125%;
+  font-variation-settings: "wdth" 125;
+  letter-spacing: -0.01em;
+  line-height: 1.02;
+}
+
+.section-title {
+  font-family: var(--font-archivo), system-ui, sans-serif;
+  font-variation-settings: "wdth" 112;
+  font-weight: 700;
+  font-size: clamp(1.75rem, 1.4rem + 1.4vw, 2.5rem);
+  line-height: 1.1;
+  letter-spacing: -0.005em;
+}
+
+:focus-visible {
+  outline: 2px solid var(--contour);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* A bullet that a terrain peak just pointed to: a brief marker, shown in response to a click. */
+@keyframes located {
+  from {
+    background-color: color-mix(in srgb, var(--signal) 35%, transparent);
+  }
+  to {
+    background-color: transparent;
+  }
+}
+
+.is-located {
+  animation: located 1.6s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .is-located {
+    animation: none;
+    outline: 2px solid var(--signal);
+    outline-offset: 4px;
+  }
+}
