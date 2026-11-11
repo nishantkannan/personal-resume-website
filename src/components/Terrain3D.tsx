@@ -160,7 +160,7 @@ function Scene({ highlights, active, onActive, onSelect, animate }: SceneProps) 
         const isActive = active === i;
         return (
           <mesh
-            key={highlights[i].target}
+            key={highlights[i].value}
             ref={(m) => {
               peakRefs.current[i] = m;
             }}
@@ -192,7 +192,7 @@ function Scene({ highlights, active, onActive, onSelect, animate }: SceneProps) 
       {risen &&
         peaks.map((p, i) => (
           <Html
-            key={`label-${highlights[i].target}`}
+            key={`label-${highlights[i].value}`}
             position={[p.x, p.h + 0.9, p.z]}
             center
             zIndexRange={[10, 0]}

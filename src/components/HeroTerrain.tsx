@@ -88,7 +88,7 @@ export function HeroTerrain({ highlights }: { highlights: Highlight[] }) {
         <h2 className="mb-2 text-sm font-semibold text-ink">Results on the map</h2>
         <ul className="grid grid-cols-1 gap-x-6 sm:grid-cols-2">
           {highlights.map((h, i) => (
-            <li key={h.target}>
+            <li key={h.value}>
               <button
                 type="button"
                 onMouseEnter={() => setActive(i)}
