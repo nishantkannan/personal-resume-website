@@ -7,6 +7,14 @@ updates:
     groups:
       minor-and-patch:
         update-types: [minor, patch]
+    ignore:
+      # Node type definitions should match the Node version the site runs on (.nvmrc).
+      # Bump these by hand when .nvmrc moves to a new major version.
+      - dependency-name: "@types/node"
+        update-types: ["version-update:semver-major"]
+      # TypeScript 7 isn't supported by typescript-eslint yet. Remove this once it is.
+      - dependency-name: "typescript"
+        versions: [">=7"]
   - package-ecosystem: github-actions
     directory: /
     schedule:
