@@ -62,7 +62,7 @@ export default function Home() {
                 <br />
                 Kannan
               </h1>
-              <p className="mt-6 text-xl font-semibold">{profile.role}, Caterpillar</p>
+              <p className="mt-6 text-xl font-semibold">{profile.role}</p>
               <p className="mt-3 max-w-[38ch] text-lg text-ink-soft">{profile.tagline}</p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <a

@@ -24,7 +24,7 @@ function siteUrl() {
   return "http://localhost:3000";
 }
 
-const description = `${profile.role} at Caterpillar. ${profile.tagline}`;
+const description = `${profile.role}. ${profile.tagline}`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl()),

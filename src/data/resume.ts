@@ -57,12 +57,13 @@ export type Highlight = {
 
 export const profile = {
   name: "Nishant Kannan",
-  role: "Business Intelligence Analyst",
+  role: "Business Intelligence and Data Science Professional",
   tagline:
-    "I build the data models, dashboards and AI tools that pricing and sales teams run on.",
+    "I turn complex business data into the insights, tools and AI workflows that help organizations grow revenue and work smarter.",
   about: [
-    "I work in the Global Financial Services Division at Caterpillar, where I turn pricing, sales and competitive data into tools people actually use: Power BI suites, Snowflake pipelines, Power Apps, and AI agents that answer questions analysts used to field by hand.",
-    "I started in parts pricing, managing an $800M+ portfolio, so I build with the business problem first and the tech second. I like work that removes a bottleneck for good.",
+    "I help businesses make better decisions, faster. My work sits where data, technology and strategy meet: taking information scattered across ERPs, CRMs and spreadsheets and turning it into dashboards, models and AI-driven tools that people rely on every day.",
+    "Over the past four years I've partnered with pricing, sales, finance, marketing, engineering, IT and operations teams to replace slow, manual processes with automated systems, sharpen pricing and revenue strategy, and give leaders clear visibility into where the opportunity is. That work has delivered millions in sales growth and hundreds of thousands of dollars a year in recovered labor.",
+    "I start with the business problem, not the technology. A background in pricing and finance means I understand the numbers behind every decision, and hands-on depth in SQL, Snowflake, Power BI, Python and generative AI means I can take a solution from idea to adoption myself. I'm at my best when a project removes a bottleneck for good.",
   ],
   linkedin: "https://www.linkedin.com/in/nishant-kannan/",
   github: "https://github.com/nishantkannan",

@@ -26,7 +26,7 @@ export default function OpengraphImage() {
       >
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div style={{ fontSize: 92, fontWeight: 800, letterSpacing: -2, lineHeight: 1 }}>{profile.name}</div>
-          <div style={{ fontSize: 38, marginTop: 20, fontWeight: 600 }}>{`${profile.role}, Caterpillar`}</div>
+          <div style={{ fontSize: 38, marginTop: 20, fontWeight: 600 }}>{profile.role}</div>
           <div style={{ fontSize: 28, marginTop: 14, color: "#56636b", maxWidth: 900 }}>
             {highlights
               .slice(0, 3)
