@@ -122,3 +122,112 @@ body {
     outline-offset: 4px;
   }
 }
+
+/* ---------------------------------------------------------------- drive mode */
+
+/* Each resume section is a stop on the route: tall enough to give the car room to drive. */
+.stop {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+  padding-block: 22vh;
+  pointer-events: none;
+}
+
+.stop-hero {
+  min-height: 92vh;
+  padding-block: 18vh 26vh;
+}
+
+.stop-last {
+  padding-bottom: 30vh;
+}
+
+.stop > .panel {
+  pointer-events: auto;
+}
+
+.panel {
+  width: min(34rem, 100%);
+  padding: clamp(1.25rem, 3vw, 2.1rem);
+  border: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+  border-radius: 20px;
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  box-shadow: 0 24px 70px -36px rgb(0 0 0 / 0.55);
+  -webkit-backdrop-filter: blur(14px) saturate(1.15);
+  backdrop-filter: blur(14px) saturate(1.15);
+}
+
+.panel-wide {
+  width: min(40rem, 100%);
+}
+
+/* Shown behind the city while it loads, matching the time of day. */
+.drive-backdrop {
+  background: linear-gradient(180deg, #b9cad1 0%, #d3dee2 55%, #b3bec3 100%);
+}
+[data-tod="dusk"] .drive-backdrop {
+  background: linear-gradient(180deg, #8d7d8b 0%, #c7907a 55%, #4f4c50 100%);
+}
+[data-tod="night"] .drive-backdrop {
+  background: linear-gradient(180deg, #080d11 0%, #0d141a 55%, #121a1f 100%);
+}
+
+@keyframes nudge {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(3px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-\[nudge_2\.4s_ease-in-out_infinite\] {
+    animation: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .stop {
+    min-height: 0;
+    padding-block: 34vh;
+  }
+  .stop-hero {
+    padding-block: 7rem 30vh;
+  }
+  .stop-last {
+    padding-bottom: 14rem;
+  }
+}
+
+/* "Skip the drive": a plain, document-style resume. */
+[data-plain] .stop {
+  display: block;
+  min-height: 0;
+  padding-block: 2.5rem;
+  border-top: 1px solid var(--line);
+}
+[data-plain] .stop-hero {
+  padding-top: 7rem;
+  border-top: 0;
+}
+[data-plain] .stop-last {
+  padding-bottom: 4rem;
+}
+[data-plain] .panel,
+[data-plain] .panel-wide {
+  width: 100%;
+  max-width: 48rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+[data-plain] .drive-only {
+  display: none;
+}

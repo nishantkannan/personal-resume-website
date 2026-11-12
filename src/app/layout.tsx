@@ -51,8 +51,9 @@ export const viewport: Viewport = {
   ],
 };
 
-// Runs before paint so the page never flashes the wrong theme.
-const themeScript = `(function(){try{var t=localStorage.getItem('theme');if(t!=='light'&&t!=='dark'){t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.dataset.theme=t}catch(e){document.documentElement.dataset.theme='light'}})()`;
+// Runs before paint so the page never flashes the wrong time of day, theme or layout.
+// Time of day: day uses the light theme, dusk and night the dark one.
+const themeScript = `(function(){var d=document.documentElement.dataset;try{var t=localStorage.getItem('tod');if(t!=='day'&&t!=='dusk'&&t!=='night'){var old=localStorage.getItem('theme');t=old==='dark'||(old!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches)?'night':'day'}d.tod=t;d.theme=t==='day'?'light':'dark';if(localStorage.getItem('plain')==='1')d.plain='1'}catch(e){d.tod='day';d.theme='light'}})()`;
 
 export default function RootLayout({
   children,
