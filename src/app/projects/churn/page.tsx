@@ -62,7 +62,7 @@ export default function ChurnPage() {
     <div className="min-h-screen">
       <header className="border-b border-line">
         <div className="mx-auto flex max-w-[76rem] items-center justify-between gap-4 px-4 py-4 sm:px-8">
-          <Link href="/" className="text-[0.9rem] font-semibold hover:text-contour">
+          <Link href="/#project-churn" className="text-[0.9rem] font-semibold hover:text-contour">
             ← Nishant Kannan
           </Link>
           <nav aria-label="Sections" className="hidden gap-5 text-[0.85rem] text-ink-soft lg:flex">
