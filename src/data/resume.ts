@@ -229,6 +229,16 @@ export const experience: { company: string; roles: Role[] } = {
 
 export const projects = [
   {
+    id: "project-churn",
+    name: "Bank customer churn model",
+    date: "Nov 2026",
+    result: "Calling the riskiest 20% reaches 63% of churners",
+    text: "Built a churn model for 10,000 bank customers in Python: found and removed a column that leaked the answer, compared four models with nested cross-validation, chose the alert cut-off without touching the test set, and explained every score with SHAP. An interactive React report lets you move the cut-off and see the cost.",
+    skills: ["python", "react"] as SkillId[],
+    href: "/projects/churn",
+    linkLabel: "Explore the model",
+  },
+  {
     id: "project-grid",
     name: "Caterpillar GRID Hackathon",
     date: "Jun 2026",

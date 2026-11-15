@@ -24,6 +24,12 @@
   --on-signal: #1f2b33;
   --terrain-base: #b9c9ce;
   --terrain-high: #3e6f78;
+  /* Chart colours, checked for colour-blind separation against --surface. */
+  --viz-model: #00879c;
+  --viz-churn: #c4553a;
+  --viz-ref: #8a949a;
+  --viz-grid: #dde4e7;
+  --viz-axis: #b4bfc4;
   color-scheme: light;
 }
 
@@ -39,6 +45,11 @@
   --on-signal: #1f2b33;
   --terrain-base: #2f4049;
   --terrain-high: #6fa3ad;
+  --viz-model: #1ea3b5;
+  --viz-churn: #d9694c;
+  --viz-ref: #7d8a91;
+  --viz-grid: #314049;
+  --viz-axis: #4a5b65;
   color-scheme: dark;
 }
 
@@ -52,6 +63,10 @@
   --color-contour-strong: var(--contour-strong);
   --color-signal: var(--signal);
   --color-on-signal: var(--on-signal);
+  --color-viz-model: var(--viz-model);
+  --color-viz-churn: var(--viz-churn);
+  --color-viz-ref: var(--viz-ref);
+  --color-viz-grid: var(--viz-grid);
   --font-display: var(--font-archivo);
   --font-sans: var(--font-plex);
 }

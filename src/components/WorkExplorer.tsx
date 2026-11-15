@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useMemo, useState } from "react";
 import type { SkillGroup, SkillId, Role } from "@/data/resume";
 import { setUi } from "@/lib/drive-store";
@@ -11,6 +12,8 @@ type Project = {
   result: string;
   text: string;
   skills: SkillId[];
+  href?: string;
+  linkLabel?: string;
 };
 
 type Props = {
@@ -171,7 +174,7 @@ export function WorkExplorer({ skillGroups, company, roles, projects }: Props) {
       <section id="projects" aria-labelledby="projects-title" className="stop">
         <div className="panel">
           <h2 id="projects-title" className="section-title">
-            Project
+            {projects.length > 1 ? "Projects" : "Project"}
           </h2>
           <div className="mt-6 flex flex-col gap-8">
             {projects.map((p) => (
@@ -191,6 +194,14 @@ export function WorkExplorer({ skillGroups, company, roles, projects }: Props) {
                 <p className="mt-3 text-sm text-ink-soft">
                   Built with {p.skills.map((id) => skillName.get(id)).join(", ")}
                 </p>
+                {p.href && (
+                  <Link
+                    href={p.href}
+                    className="mt-3 inline-flex items-center gap-1.5 font-semibold text-contour underline-offset-4 hover:underline"
+                  >
+                    {p.linkLabel ?? "View project"} <span aria-hidden="true">→</span>
+                  </Link>
+                )}
               </article>
             ))}
           </div>

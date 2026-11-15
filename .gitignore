@@ -42,3 +42,8 @@ next-env.d.ts
 
 # local preview config for the Claude app
 .claude/launch.json
+
+# churn model: trained model files (rebuilt by ml/churn/train.py) and Python caches
+/ml/churn/artifacts/
+__pycache__/
+.pytest_cache/

@@ -8,6 +8,16 @@ My personal resume site: an interactive 3D "data terrain" whose peaks are real c
 
 Built with Next.js 16 (App Router), TypeScript, Tailwind CSS v4, React Three Fiber for the 3D, and Resend for email. Hosted on Vercel.
 
+## Data science project: churn model
+
+[`/projects/churn`](src/app/projects/churn/page.tsx) is an interactive report on a churn model for 10,000 bank customers. The model is trained in Python under [`ml/churn/`](ml/churn/README.md), which writes `src/data/churn-report.json`; the page reads every number from that file. To retrain:
+
+```bash
+cd ml/churn
+pip install -r requirements.txt
+python train.py
+```
+
 ## Run it locally
 
 You need Node.js 20.9 or newer (`brew install node`). The version CI uses is pinned in `.nvmrc`.
