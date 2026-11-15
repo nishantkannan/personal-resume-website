@@ -578,10 +578,11 @@ function Landmarks({ look, tod, skillGroup }: { look: Look; tod: Tod; skillGroup
         { text: `${r.start} to ${r.end}`, size: 36, color: dim },
       ]),
     );
-    const project = projects[0];
+    // The podium shows a placed result, so pick the first project that has one.
+    const project = projects.find((p) => p.result) ?? projects[0];
     const podium = signTexture(800, 300, panel, [
       { text: project.name.replace("Caterpillar ", ""), size: 62, color: ink, weight: 700, display: true },
-      { text: project.result, size: 52, color: "#e3a81b", weight: 600 },
+      { text: project.result ?? project.date, size: 52, color: "#e3a81b", weight: 600 },
     ]);
     const campus = signTexture(900, 300, panel, [
       { text: education.school.split(",")[0], size: 64, color: ink, weight: 700, display: true },

@@ -25,7 +25,7 @@ export const STOP_LABELS = [
   "About",
   "Skills",
   "Experience",
-  "Project",
+  "Projects",
   "Education",
   "Contact",
 ] as const;

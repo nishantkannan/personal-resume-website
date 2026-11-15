@@ -11,6 +11,7 @@ import { ContactForm } from "@/components/ContactForm";
 import { DriveExperience } from "@/components/drive/DriveExperience";
 import { ResultsList } from "@/components/ResultsList";
 import { WorkExplorer } from "@/components/WorkExplorer";
+import { churnStats } from "@/lib/churn-summary";
 
 export default function Home() {
   return (
@@ -87,7 +88,7 @@ export default function Home() {
           skillGroups={skillGroups}
           company={experience.company}
           roles={experience.roles}
-          projects={projects}
+          projects={projects.map((p) => (p.id === "project-churn" ? { ...p, stats: churnStats() } : p))}
         />
 
         <section id="education" aria-labelledby="education-title" className="stop">

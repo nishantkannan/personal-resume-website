@@ -21,6 +21,9 @@ export type SkillId =
   | "salesforce"
   | "azure-devops"
   | "react"
+  | "svelte"
+  | "typescript"
+  | "azure-foundry"
   | "financial-modeling"
   | "pricing-strategy"
   | "ab-testing"
@@ -100,7 +103,10 @@ export const skillGroups: SkillGroup[] = [
       { id: "copilot-studio", name: "Copilot Studio" },
       { id: "llm", name: "LLM workflows" },
       { id: "python", name: "Python (pandas, NumPy, scikit-learn)" },
+      { id: "azure-foundry", name: "Azure Foundry" },
       { id: "react", name: "React" },
+      { id: "svelte", name: "Svelte" },
+      { id: "typescript", name: "TypeScript" },
     ],
   },
   {
@@ -227,14 +233,50 @@ export const experience: { company: string; roles: Role[] } = {
   ],
 };
 
-export const projects = [
+export type Project = {
+  id: string;
+  /** What kind of project, shown above the name, e.g. "Hackathon". */
+  kind: string;
+  name: string;
+  date: string;
+  /** Short result shown as a badge. Leave out when there isn't one. */
+  result?: string;
+  text: string;
+  skills: SkillId[];
+  /** A page on this site with more detail. */
+  href?: string;
+  linkLabel?: string;
+  /** Headline numbers shown on the card. The churn model's come from its report (see page.tsx). */
+  stats?: { value: string; label: string }[];
+};
+
+export const projects: Project[] = [
+  {
+    id: "project-churn",
+    kind: "Data science project",
+    name: "Bank customer churn model",
+    date: "Nov 2026",
+    text: "Built a churn model for 10,000 bank customers in Python: found and removed a column that leaked the answer, compared four models with nested cross-validation, chose the alert cut-off without touching the test set, and explained every score with SHAP. An interactive React report lets you move the cut-off and see what it's worth.",
+    skills: ["python", "react", "typescript"],
+    href: "/projects/churn",
+    linkLabel: "Explore the model",
+  },
+  {
+    id: "project-ai-mastery",
+    kind: "Hackathon",
+    name: "Caterpillar AI Mastery Hackathon",
+    date: "Nov 2026",
+    text: "Built an AI onboarding web app that creates role-specific onboarding plans in a gamified UI, and consolidates all access and onboarding information into an AI assistant, to streamline employee onboarding and reduce personnel downtime.",
+    skills: ["svelte", "typescript", "azure-foundry", "llm"],
+  },
   {
     id: "project-grid",
+    kind: "Hackathon",
     name: "Caterpillar GRID Hackathon",
     date: "Jun 2026",
     result: "2nd of 38 teams",
     text: "Built a React web app that surfaces the highest-opportunity construction and mining projects worldwide, with an AI agent that predicts high-value customers and charts of competitive data, regional project value and sales priorities.",
-    skills: ["react", "llm"] as SkillId[],
+    skills: ["react", "llm"],
   },
 ];
 
