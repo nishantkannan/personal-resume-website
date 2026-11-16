@@ -258,7 +258,7 @@ export const projects: Project[] = [
     date: "Nov 2026",
     text: "Designed and built a browser-based 3D game that teaches how large language models work. Players guide Echo, a courier drone, as it carries a prompt up a tower of eight worlds covering tokenization, embeddings, positional encoding, attention, Transformer layers, sampling, training and RAG. Each world turns one concept into a hands-on puzzle backed by real calculations, with a built-in view that shows the numbers behind each move.",
     skills: ["react", "typescript", "llm"],
-    href: "https://nishantkannan.github.io/AI-game/",
+    href: "https://nishantkannan.github.io/Neural-quest/",
     linkLabel: "Play Neural Quest",
   },
   {
