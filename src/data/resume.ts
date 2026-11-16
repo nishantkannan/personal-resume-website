@@ -246,6 +246,8 @@ export type Project = {
   id: string;
   category: ProjectCategory;
   name: string;
+  /** Shorter name for the project's roadside sign in the 3D drive, when the full name is too long. */
+  signName?: string;
   date: string;
   /** Short result shown as a badge. Leave out when there isn't one. */
   result?: string;
@@ -274,8 +276,8 @@ export const projects: Project[] = [
     href: "https://nishantkannan.github.io/Neural-quest/",
     linkLabel: "Play Neural Quest",
     image: {
-      src: "/projects/neural-quest.jpg",
-      alt: "Neural Quest's sampling world: a 3D roulette wheel splits “The cat sat on the ___” into next-word probabilities, with mat at 56%.",
+      src: "/projects/neural-quest-home.jpg",
+      alt: "Neural Quest's home screen: the game's logo over a colourful tower of eight floors on a floating island, with Echo the drone and New Game and Lesson Mode buttons.",
       width: 1200,
       height: 600,
     },
@@ -284,6 +286,7 @@ export const projects: Project[] = [
     id: "project-churn",
     category: "data-science",
     name: "Bank customer churn model",
+    signName: "Churn model",
     date: "Aug 2026",
     text: "Built a churn model for 10,000 bank customers in Python: found and removed a column that leaked the answer, compared four models with nested cross-validation, chose the alert cut-off without touching the test set, and explained every score with SHAP. An interactive React report lets you move the cut-off and see what it's worth.",
     skills: ["python", "react", "typescript"],

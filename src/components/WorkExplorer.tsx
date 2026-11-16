@@ -173,14 +173,14 @@ export function WorkExplorer({ skillGroups, company, roles, projectCategories, p
             {projects.length > 1 ? "Projects" : "Project"}
           </h2>
           {groups.map((group) => (
-            <section key={group.id} aria-labelledby={`projects-${group.id}`} className="mt-9 first-of-type:mt-7">
-              <div className="flex items-center gap-3">
-                <h3 id={`projects-${group.id}`} className="font-display text-[1.15rem] font-bold">
+            <section key={group.id} aria-labelledby={`projects-${group.id}`} className="mt-12 first-of-type:mt-8">
+              <div className="flex items-center gap-4">
+                <h3 id={`projects-${group.id}`} className="category-title">
                   {group.name}
                 </h3>
-                <span aria-hidden="true" className="h-px flex-1 bg-line" />
+                <span aria-hidden="true" className="h-0.5 flex-1 rounded-full bg-contour/30" />
               </div>
-              <div className="mt-5 flex flex-col">
+              <div className="mt-6 flex flex-col">
                 {group.items.map((p, i) => (
                   <article
                     key={p.id}
