@@ -2,18 +2,25 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import type { Project, SkillGroup, SkillId, Role } from "@/data/resume";
+import type { Project, ProjectCategory, SkillGroup, SkillId, Role } from "@/data/resume";
 import { setUi } from "@/lib/drive-store";
+import { ProjectVisual } from "./ProjectVisual";
 
 type Props = {
   skillGroups: SkillGroup[];
   company: string;
   roles: Role[];
+  projectCategories: { id: ProjectCategory; name: string }[];
   projects: Project[];
 };
 
-export function WorkExplorer({ skillGroups, company, roles, projects }: Props) {
+export function WorkExplorer({ skillGroups, company, roles, projectCategories, projects }: Props) {
   const [selected, setSelected] = useState<SkillId | null>(null);
+
+  // Projects grouped under their category headings; empty categories are left out.
+  const groups = projectCategories
+    .map((c) => ({ ...c, items: projects.filter((p) => p.category === c.id) }))
+    .filter((g) => g.items.length > 0);
 
   const skillName = useMemo(() => {
     const m = new Map<SkillId, string>();
@@ -165,60 +172,70 @@ export function WorkExplorer({ skillGroups, company, roles, projects }: Props) {
           <h2 id="projects-title" className="section-title">
             {projects.length > 1 ? "Projects" : "Project"}
           </h2>
-          <div className="mt-6 flex flex-col">
-            {projects.map((p, i) => (
-              <article
-                key={p.id}
-                id={p.id}
-                className={`rounded-sm transition-opacity duration-200 ${i > 0 ? "mt-7 border-t border-line pt-7" : ""} ${
-                  matches(p.skills) ? "opacity-100" : "opacity-35"
-                }`}
-              >
-                <p className="text-[0.75rem] font-semibold uppercase tracking-[0.1em] text-contour">{p.kind}</p>
-                <div className="mt-1 flex flex-wrap items-baseline gap-x-4 gap-y-1">
-                  <h3 className="text-lg font-semibold">{p.name}</h3>
-                  <span className="text-ink-soft">{p.date}</span>
-                </div>
-                {p.result && (
-                  <p className="mt-3 inline-block rounded-sm bg-signal px-2 py-0.5 text-sm font-semibold text-on-signal">
-                    {p.result}
-                  </p>
-                )}
-                <p className="mt-3">{p.text}</p>
-                {p.stats && (
-                  <dl className="mt-4 grid grid-cols-3 gap-px overflow-hidden rounded-xl border border-line bg-line">
-                    {p.stats.map((s) => (
-                      <div key={s.label} className="flex flex-col-reverse justify-end bg-surface px-3 py-2.5">
-                        <dt className="mt-0.5 text-[0.75rem] leading-snug text-ink-soft">{s.label}</dt>
-                        <dd className="text-xl font-semibold leading-tight">{s.value}</dd>
-                      </div>
-                    ))}
-                  </dl>
-                )}
-                <ul className="mt-4 flex flex-wrap gap-1.5" aria-label="Built with">
-                  {p.skills.map((id) => (
-                    <li
-                      key={id}
-                      className={`rounded-full border px-2.5 py-0.5 text-[0.8rem] ${
-                        id === selected ? "border-contour bg-contour/10 text-ink" : "border-line text-ink-soft"
-                      }`}
-                    >
-                      {skillName.get(id)}
-                    </li>
-                  ))}
-                </ul>
-                {p.href && (
-                  <Link
-                    href={p.href}
-                    {...(p.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                    className="mt-5 inline-flex items-center gap-2 rounded-full bg-contour px-5 py-2.5 text-[0.95rem] font-semibold text-bg transition-colors hover:bg-contour-strong"
+          {groups.map((group) => (
+            <section key={group.id} aria-labelledby={`projects-${group.id}`} className="mt-9 first-of-type:mt-7">
+              <div className="flex items-center gap-3">
+                <h3 id={`projects-${group.id}`} className="font-display text-[1.15rem] font-bold">
+                  {group.name}
+                </h3>
+                <span aria-hidden="true" className="h-px flex-1 bg-line" />
+              </div>
+              <div className="mt-5 flex flex-col">
+                {group.items.map((p, i) => (
+                  <article
+                    key={p.id}
+                    id={p.id}
+                    className={`rounded-sm transition-opacity duration-200 ${i > 0 ? "mt-7 border-t border-line pt-7" : ""} ${
+                      matches(p.skills) ? "opacity-100" : "opacity-35"
+                    }`}
                   >
-                    {p.linkLabel ?? "View project"} <span aria-hidden="true">→</span>
-                  </Link>
-                )}
-              </article>
-            ))}
-          </div>
+                    <ProjectVisual project={p} />
+                    <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
+                      <h4 className="text-lg font-semibold">{p.name}</h4>
+                      <span className="text-ink-soft">{p.date}</span>
+                    </div>
+                    {p.result && (
+                      <p className="mt-3 inline-block rounded-sm bg-signal px-2 py-0.5 text-sm font-semibold text-on-signal">
+                        {p.result}
+                      </p>
+                    )}
+                    <p className="mt-3">{p.text}</p>
+                    {p.stats && (
+                      <dl className="mt-4 grid grid-cols-3 gap-px overflow-hidden rounded-xl border border-line bg-line">
+                        {p.stats.map((s) => (
+                          <div key={s.label} className="flex flex-col-reverse justify-end bg-surface px-3 py-2.5">
+                            <dt className="mt-0.5 text-[0.75rem] leading-snug text-ink-soft">{s.label}</dt>
+                            <dd className="text-xl font-semibold leading-tight">{s.value}</dd>
+                          </div>
+                        ))}
+                      </dl>
+                    )}
+                    <ul className="mt-4 flex flex-wrap gap-1.5" aria-label="Built with">
+                      {p.skills.map((id) => (
+                        <li
+                          key={id}
+                          className={`rounded-full border px-2.5 py-0.5 text-[0.8rem] ${
+                            id === selected ? "border-contour bg-contour/10 text-ink" : "border-line text-ink-soft"
+                          }`}
+                        >
+                          {skillName.get(id)}
+                        </li>
+                      ))}
+                    </ul>
+                    {p.href && (
+                      <Link
+                        href={p.href}
+                        {...(p.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                        className="mt-5 inline-flex items-center gap-2 rounded-full bg-contour px-5 py-2.5 text-[0.95rem] font-semibold text-bg transition-colors hover:bg-contour-strong"
+                      >
+                        {p.linkLabel ?? "View project"} <span aria-hidden="true">→</span>
+                      </Link>
+                    )}
+                  </article>
+                ))}
+              </div>
+            </section>
+          ))}
         </div>
       </section>
     </>
