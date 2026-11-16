@@ -210,6 +210,7 @@ export function WorkExplorer({ skillGroups, company, roles, projects }: Props) {
                 {p.href && (
                   <Link
                     href={p.href}
+                    {...(p.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                     className="mt-5 inline-flex items-center gap-2 rounded-full bg-contour px-5 py-2.5 text-[0.95rem] font-semibold text-bg transition-colors hover:bg-contour-strong"
                   >
                     {p.linkLabel ?? "View project"} <span aria-hidden="true">→</span>
