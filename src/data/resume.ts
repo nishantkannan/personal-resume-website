@@ -233,10 +233,18 @@ export const experience: { company: string; roles: Role[] } = {
   ],
 };
 
+export type ProjectCategory = "ai" | "data-science" | "hackathon";
+
+/** Projects are grouped under these headings, in this order. */
+export const projectCategories: { id: ProjectCategory; name: string }[] = [
+  { id: "ai", name: "AI" },
+  { id: "data-science", name: "Data science" },
+  { id: "hackathon", name: "Hackathons" },
+];
+
 export type Project = {
   id: string;
-  /** What kind of project, shown above the name, e.g. "Hackathon". */
-  kind: string;
+  category: ProjectCategory;
   name: string;
   date: string;
   /** Short result shown as a badge. Leave out when there isn't one. */
@@ -248,30 +256,33 @@ export type Project = {
   linkLabel?: string;
   /** Headline numbers shown on the card. The churn model's come from its report (see page.tsx). */
   stats?: { value: string; label: string }[];
+  /** Screenshot shown at the top of the card (2:1, stored in public/projects). */
+  image?: { src: string; alt: string; width: number; height: number };
+  /** Cumulative gains curve shown at the top of the card, as [share called, share of churners reached].
+   *  The churn model's comes from its report (see page.tsx). */
+  gains?: [number, number][];
 };
 
 export const projects: Project[] = [
   {
     id: "project-neural-quest",
-    kind: "3D game",
+    category: "ai",
     name: "Neural Quest",
     date: "Nov 2026",
     text: "Designed and built a browser-based 3D game that teaches how large language models work. Players guide Echo, a courier drone, as it carries a prompt up a tower of eight worlds covering tokenization, embeddings, positional encoding, attention, Transformer layers, sampling, training and RAG. Each world turns one concept into a hands-on puzzle backed by real calculations, with a built-in view that shows the numbers behind each move.",
     skills: ["react", "typescript", "llm"],
     href: "https://nishantkannan.github.io/Neural-quest/",
     linkLabel: "Play Neural Quest",
-  },
-  {
-    id: "project-ai-mastery",
-    kind: "Hackathon",
-    name: "Caterpillar AI Mastery Hackathon",
-    date: "Nov 2026",
-    text: "Built an AI onboarding web app that creates role-specific onboarding plans in a gamified UI, and consolidates all access and onboarding information into an AI assistant, to streamline employee onboarding and reduce personnel downtime.",
-    skills: ["svelte", "typescript", "azure-foundry", "llm"],
+    image: {
+      src: "/projects/neural-quest.jpg",
+      alt: "Neural Quest's sampling world: a 3D roulette wheel splits “The cat sat on the ___” into next-word probabilities, with mat at 56%.",
+      width: 1200,
+      height: 600,
+    },
   },
   {
     id: "project-churn",
-    kind: "Data science project",
+    category: "data-science",
     name: "Bank customer churn model",
     date: "Aug 2026",
     text: "Built a churn model for 10,000 bank customers in Python: found and removed a column that leaked the answer, compared four models with nested cross-validation, chose the alert cut-off without touching the test set, and explained every score with SHAP. An interactive React report lets you move the cut-off and see what it's worth.",
@@ -280,8 +291,16 @@ export const projects: Project[] = [
     linkLabel: "Explore the model",
   },
   {
+    id: "project-ai-mastery",
+    category: "hackathon",
+    name: "Caterpillar AI Mastery Hackathon",
+    date: "Nov 2026",
+    text: "Built an AI onboarding web app that creates role-specific onboarding plans in a gamified UI, and consolidates all access and onboarding information into an AI assistant, to streamline employee onboarding and reduce personnel downtime.",
+    skills: ["svelte", "typescript", "azure-foundry", "llm"],
+  },
+  {
     id: "project-grid",
-    kind: "Hackathon",
+    category: "hackathon",
     name: "Caterpillar GRID Hackathon",
     date: "Jun 2026",
     result: "2nd of 38 teams",
