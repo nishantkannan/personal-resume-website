@@ -110,6 +110,16 @@ body {
   letter-spacing: -0.005em;
 }
 
+/* One step below .section-title: the group headings inside a section (e.g. Projects → AI). */
+.category-title {
+  font-family: var(--font-archivo), system-ui, sans-serif;
+  font-variation-settings: "wdth" 112;
+  font-weight: 700;
+  font-size: clamp(1.3rem, 1.15rem + 0.5vw, 1.55rem);
+  line-height: 1.15;
+  color: var(--contour);
+}
+
 :focus-visible {
   outline: 2px solid var(--contour);
   outline-offset: 3px;

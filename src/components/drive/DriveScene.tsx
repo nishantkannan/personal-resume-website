@@ -4,7 +4,7 @@ import { Canvas, useFrame, useThree, type ThreeEvent } from "@react-three/fiber"
 import { RoundedBox } from "@react-three/drei";
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
-import { education, experience, highlights, profile, projects, skillGroups } from "@/data/resume";
+import { education, experience, highlights, profile, projectCategories, projects, skillGroups } from "@/data/resume";
 import { getUi, live, setUi, useUi, type Tod } from "@/lib/drive-store";
 import { locate } from "@/lib/locate";
 import {
@@ -183,14 +183,24 @@ const BILLBOARD_U = highlights.map((_, k) => STOP_U[1] + LEAD * 1.3 + (k - (high
 const DISTRICT_U = skillGroups.map((_, g) => STOP_U[3] + LEAD * 0.5 - SEG * 0.3 + (g + 0.5) * ((SEG * 0.6) / skillGroups.length));
 const TOWER_U = [-1, 0, 1].map((j) => STOP_U[4] + LEAD + j * 0.017);
 
+/** Projects in the order the page lists them (by category), one roadside sign each. */
+const SIGN_PROJECTS = projectCategories.flatMap((c) => projects.filter((p) => p.category === c.id));
+/** The signs start a little past the Projects stop, 16 m apart so they don't hide each other. */
+const PROJECT_SIGN_U = SIGN_PROJECTS.map((_, k) => STOP_U[5] + (16 + k * 16) / ROUTE_LENGTH);
+/** The podium (for a placed result) stands just past the last sign. */
+const PODIUM_U = PROJECT_SIGN_U[PROJECT_SIGN_U.length - 1] + 0.004;
+
 type Zone = { x: number; z: number; r: number };
 
 const ZONES: Zone[] = [
   ...BILLBOARD_U.map((u) => ({ ...besideRoad(u, 11), r: 6 })),
   ...DISTRICT_U.map((u) => ({ ...besideRoad(u, 9.5), r: 4 })),
   ...TOWER_U.map((u) => ({ ...besideRoad(u, 18), r: 11 })),
+  ...PROJECT_SIGN_U.map((u) => ({ ...besideRoad(u, 9.5), r: 4.5 })),
+  // Keep the line of sight from the road to each project sign clear of street trees.
+  ...PROJECT_SIGN_U.map((u) => ({ ...besideRoad(u - 7 / ROUTE_LENGTH, 8), r: 4.5 })),
   { ...besideRoad(STOP_U[2], 18), r: 15 },
-  { ...besideRoad(STOP_U[5] + LEAD, 16), r: 13 },
+  { ...besideRoad(PODIUM_U, 16), r: 13 },
   { ...besideRoad(STOP_U[6] + LEAD, 20), r: 18 },
   { ...besideRoad(STOP_U[7] + 0.022, 9), r: 13 },
 ];
@@ -578,12 +588,13 @@ function Landmarks({ look, tod, skillGroup }: { look: Look; tod: Tod; skillGroup
         { text: `${r.start} to ${r.end}`, size: 36, color: dim },
       ]),
     );
-    // The podium shows a placed result, so pick the first project that has one.
-    const project = projects.find((p) => p.result) ?? projects[0];
-    const podium = signTexture(800, 300, panel, [
-      { text: project.name.replace("Caterpillar ", ""), size: 62, color: ink, weight: 700, display: true },
-      { text: project.result ?? project.date, size: 52, color: "#e3a81b", weight: 600 },
-    ]);
+    // One sign per project, all in the podium sign's format: name, then the result (or the date).
+    const projectSigns = SIGN_PROJECTS.map((p) =>
+      signTexture(800, 300, panel, [
+        { text: p.signName ?? p.name.replace("Caterpillar ", ""), size: 62, color: ink, weight: 700, display: true },
+        { text: p.result ?? p.date, size: 52, color: "#e3a81b", weight: 600 },
+      ]),
+    );
     const campus = signTexture(900, 300, panel, [
       { text: education.school.split(",")[0], size: 64, color: ink, weight: 700, display: true },
       { text: education.degree, size: 34, color: dim },
@@ -592,7 +603,7 @@ function Landmarks({ look, tod, skillGroup }: { look: Look; tod: Tod; skillGroup
       { text: "Destination", size: 44, color: "#d7e6e9" },
       { text: "Get in touch", size: 92, color: "#ffffff", weight: 800, display: true },
     ]);
-    return { billboards, gantry, districts, towers, podium, campus, destination };
+    return { billboards, gantry, districts, towers, projectSigns, campus, destination };
   }, []);
 
   useEffect(
@@ -685,8 +696,21 @@ function Landmarks({ look, tod, skillGroup }: { look: Look; tod: Tod; skillGroup
         );
       })}
 
+      {SIGN_PROJECTS.map((p, k) => (
+        <SignBoard
+          key={p.id}
+          u={PROJECT_SIGN_U[k]}
+          side={9.5}
+          height={1.6}
+          size={[5.6, 2.1]}
+          texture={tex.projectSigns[k]}
+          glow={base}
+          onClick={() => locate(p.id)}
+        />
+      ))}
+
       {(() => {
-        const u = STOP_U[5] + LEAD;
+        const u = PODIUM_U;
         const p = besideRoad(u, 16);
         const yaw = yawAt(u);
         const r = rightAt(u);
@@ -708,7 +732,6 @@ function Landmarks({ look, tod, skillGroup }: { look: Look; tod: Tod; skillGroup
                 />
               </mesh>
             ))}
-            <SignBoard u={u - 0.004} side={9.5} height={1.6} size={[5.6, 2.1]} texture={tex.podium} glow={base} />
             <mesh position={[p.x + r.x * 2, 0.03, p.z + r.z * 2]} rotation={[-Math.PI / 2, 0, yaw]}>
               <planeGeometry args={[16, 12]} />
               <meshStandardMaterial color={look.walk} />
